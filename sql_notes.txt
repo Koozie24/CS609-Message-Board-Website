@@ -1,0 +1,42 @@
+create table lab3_data (
+    -> UserID int NOT NULL AUTO_INCREMENT,
+    -> UserName varchar(255) NOT NULL,
+    -> UserPw varchar(255) NOT NULL,
+    -> PRIMARY KEY (UserID)
+    -> );
+
+   MariaDB [cs60902]> insert into lab3_data (UserName, UserPW) values ('dzejna1', 'Dz3jn4secure'); 
+
+MariaDB [cs60902]> create table content_table ( ContentID int NOT NULL AUTO_INCREMENT, 
+    -> User varchar(255), 
+    -> ContentTitle varchar(255), 
+    -> ContentText varchar(1000), 
+    -> Created DATETIME DEFAULT CURRENT_TIMESTAMP, 
+    -> Topic varchar(255), 
+    -> PRIMARY KEY (ContentID), 
+    -> FOREIGN KEY (User) REFERENCES lab3_data(UserName) 
+    -> );
+
+MariaDB [cs60902]> insert into content_table (User, ContentTitle, ContentText, Topic) values ('dzejna1','ST Raid Doubles sizes from P2 Gnomer', 'Is anyone else really feeling th
+e struggle to Phase 3 SOD change to 20 man raids?', 'Classic');
+
+create table reply_table (
+ReplyID int NOT NULL AUTO_INCREMENT,
+User varchar(255) NOT NULL,
+ReplyText varchar (1000),
+Created DATETIME DEFAULT CURRENT_TIMESTAMP,
+ContentID int NOT NULL,
+PRIMARY KEY (ReplyID),
+FOREIGN KEY (User) REFERENCES lab3_data(UserName),
+FOREIGN KEY (ContentID) REFERENCES content_table(ContentID));
+
+MariaDB [cs60902]> insert into reply_table (User, ReplyText, ContentID) values ('dzejna1', 'My guild hasnt had any issues filling a raid roster for ST', 9);
+
+//quick ref commands
+mysql -u cs60902 -p
+#90Xj$%?9$
+
+show databases;
+show tables;
+use cs60902;
+select * from lab3_data;
